@@ -3,10 +3,11 @@ import prismaClient from "../prisma";
 interface CreateCustomerProps {
   name: string;
   email: string;
+  password: string;
 }
 class CreateCustomerService {
-  async execute({ name, email }: CreateCustomerProps) {
-    if (!name || !email) {
+  async execute({ name, email, password }: CreateCustomerProps) {
+    if (!name || !email || !password) {
       throw new Error("preencha todos os campos");
     }
 
@@ -14,6 +15,7 @@ class CreateCustomerService {
       data: {
         name,
         email,
+        password,
         status: true,
       },
     });
