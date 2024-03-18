@@ -9,9 +9,14 @@ class AuthService {
   async authenticate({ email, password }: AuthServiceProps): Promise<string> {
     const user = await prismaClient.customer.findUnique({ where: { email } });
     if (!user) {
-      throw new Error("usuario nao encontrado");
+      throw new Error("usuario nao encontrado verifique suas credenciais");
     }
-    const passwordMatch = await bcrypt.compare(password, user.password);
+    const userPassword = user.password;
+    if (!userPassword) {
+      throw new Error("Senha em Branco");
+    }
+
+    const passwordMatch = await bcrypt.compare(password, userPassword);
     if (!passwordMatch) {
       throw new Error("senha incorreta");
     }
