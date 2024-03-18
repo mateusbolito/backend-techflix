@@ -16,17 +16,14 @@ class AuthService {
       throw new Error("Senha em Branco");
     }
 
+    const secretkey = process.env.JWT_SECRET_KEY as string;
     const passwordMatch = await bcrypt.compare(password, userPassword);
     if (!passwordMatch) {
       throw new Error("senha incorreta");
     }
-    const token = jwt.sign(
-      { userId: user.id },
-      "9cd5a0f873a1dcdcc6c2d8bf6aff1b96cf4b1454e24e1ee01234f2a32524aeb2",
-      {
-        expiresIn: "4h",
-      }
-    );
+    const token = jwt.sign({ userId: user.id }, secretkey, {
+      expiresIn: "8h",
+    });
     return token;
   }
 }
