@@ -12,9 +12,13 @@ class AuthController {
       const { email, password } = requet.body as {
         email: string;
         password: string;
+        name: string;
       };
 
-      const token = await this.authService.authenticate({ email, password });
+      const token = await this.authService.authenticate({
+        email,
+        password,
+      });
 
       reply.send({ token });
     } catch (error) {
