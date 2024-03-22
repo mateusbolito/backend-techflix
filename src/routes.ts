@@ -64,10 +64,8 @@ export async function routes(
     "/secret",
     async (request: FastifyRequest, reply: FastifyReply) => {
       try {
-        // Gera uma chave secreta aleatória de 32 bytes
         const jwtSecretKey = crypto.randomBytes(32).toString("hex");
 
-        // Retorna a chave secreta na resposta da rota
         return { jwtSecretKey };
       } catch (error) {
         reply.status(500).send({ error: "Erro ao gerar a chave secreta" });
