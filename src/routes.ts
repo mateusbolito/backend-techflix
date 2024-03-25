@@ -41,6 +41,7 @@ export async function routes(
         const token = await authService.authenticate({ email, password });
         res.send({ token });
       } catch (error) {
+        console.log(error);
         res.status(401).send({ error: "usuario nao autenticado" });
       }
     }
